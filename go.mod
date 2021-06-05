@@ -1,3 +1,3 @@
-module example.com/alessandrobessi/piecetable
+module github.com/alessandrobessi/piecetable
 
 go 1.16

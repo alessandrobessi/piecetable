@@ -1,7 +1,7 @@
 package main
 
 import (
-	pt "example.com/alessandrobessi/piecetable/pkg/piecetable"
+	pt "github.com/alessandrobessi/piecetable/pkg/piecetable"
 	"fmt"
 )
 
