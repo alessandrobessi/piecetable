@@ -12,9 +12,6 @@ jobs:
 
       - name: Check out source code
         uses: actions/checkout@v1
-      
-      - name: Change folder
-        run: cd pkg/piecetable
-        
+
       - name: Test
-        run: go test -v .
+        run: go test -v github.com/alessandrobessi/piecetable/pkg/piecetable/
