@@ -1,7 +1,7 @@
 package piecetable_test
 
 import (
-	pt "example.com/alessandrobessi/piecetable/pkg/piecetable"
+	pt "github.com/alessandrobessi/piecetable/pkg/piecetable"
 	"testing"
 )
 
