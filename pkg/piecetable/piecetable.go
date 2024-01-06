@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
 
 type Node struct {
@@ -38,11 +39,11 @@ func (p *PieceTable) GetIndices(index int) (int, int, int) {
 }
 
 func (p *PieceTable) GetText() string {
-	text := ""
+	var text strings.Builder
 	for _, node := range p.Nodes {
-		text += p.Buffers[node.BufferIndex][node.Offset : node.Offset+node.Length]
+		text.WriteString(p.Buffers[node.BufferIndex][node.Offset : node.Offset+node.Length])
 	}
-	return text
+	return text.String()
 }
 
 func (p *PieceTable) Insert(text string, index int) {
@@ -103,7 +104,7 @@ func (p *PieceTable) Delete(index int, length int) {
 }
 
 func (p *PieceTable) GetLine(index int) string {
-	line := ""
+	var line strings.Builder
 	startNode := 0
 	startOffset := 0
 	stopNode := 0
@@ -130,20 +131,20 @@ func (p *PieceTable) GetLine(index int) string {
 
 	if startNode == stopNode {
 		node := p.Nodes[startNode]
-		line += p.Buffers[startNode][node.Offset+startOffset : node.Offset+stopOffset]
-		return line
+		line.WriteString(p.Buffers[startNode][node.Offset+startOffset : node.Offset+stopOffset])
+		return line.String()
 	}
 
 	for i, node := range p.Nodes[startNode : stopNode+1] {
 		if startNode+i == startNode {
-			line += p.Buffers[node.BufferIndex][node.Offset+startOffset : node.Offset+node.Length]
+			line.WriteString(p.Buffers[node.BufferIndex][node.Offset+startOffset : node.Offset+node.Length])
 		} else if startNode+i == stopNode {
-			line += p.Buffers[node.BufferIndex][node.Offset : node.Offset+stopOffset]
+			line.WriteString(p.Buffers[node.BufferIndex][node.Offset : node.Offset+stopOffset])
 		} else {
-			line += p.Buffers[node.BufferIndex][node.Offset : node.Offset+node.Length]
+			line.WriteString(p.Buffers[node.BufferIndex][node.Offset : node.Offset+node.Length])
 		}
 	}
-	return line
+	return line.String()
 }
 
 func ReadFromFile(path string, bufferSize int) PieceTable {
